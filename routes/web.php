@@ -5,8 +5,8 @@ use App\Http\Controllers\JobController;
 
 
 Route::get('', function () {
-    return to_route('jobs.index');
+    return redirect()->route('jobs.index');  // Redirect ke jobs.index
 });
 
 Route::resource('jobs', JobController::class)
-    ->only(['index']);
+    ->only(['index', 'show']);  // Hanya index dan show yang ada dalam route resource
