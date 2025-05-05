@@ -39,10 +39,11 @@ class JobController extends Controller
     public function show(Job $job)
     {
          // Hantar data Job ke view
-        return view('jobs.show',
-            compact('job'));
+        return view('jobs.show', compact('job'));
 
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

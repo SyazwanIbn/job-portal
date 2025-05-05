@@ -10,3 +10,4 @@ Route::get('', function () {
 
 Route::resource('jobs', JobController::class)
     ->only(['index', 'show']);  // Hanya index dan show yang ada dalam route resource
+
