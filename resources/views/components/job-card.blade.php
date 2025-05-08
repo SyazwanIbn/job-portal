@@ -1,4 +1,4 @@
-<x-card class="m-4">
+<x-card class="mb-4">
     <div class="flex justify-between mb-4">
         <h2 class="text-lg font-medium">{{ $job->title }}</h2>
         <div class="text-slate-500">
@@ -17,11 +17,6 @@
             <x-tag class="rounded-md border px-2 py-1">{{ $job->category }}</x-tag>
         </div>
     </div>
-
-    <p class="text-sm text-slate-500 mb-4">
-        {!! nl2br(e($job->description)) !!}
-
-    </p>
 
     {{  $slot }}
 
