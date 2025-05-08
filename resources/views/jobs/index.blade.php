@@ -6,13 +6,13 @@
 
     {{-- to build filter --}}
     <x-card class="mb-4 text-sm">
-        <form action="{{ route('jobs.index') }}" method="GET">
+        <form id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
             <div class="mb-4 grid grid-cols-2 gap-4 ">
                 <div>
                     <div class="mb-1 font-semibold">Search</div>
                     <x-text-input
                         name="search"
-                        placeholder="Search for any text"
+                        placeholder="Search for any text" form-id="filtering-form"
                         value="{{ request('search') }}" />
                 </div>
                 <div>
@@ -21,55 +21,25 @@
                         <div class="flex gap-2">
                             <x-text-input
                             name="min_salary"
-                            placeholder="From"
+                            placeholder="From" form-id="filtering-form"
                             value="{{ request('min_salary') }}" />
                             <x-text-input
                             name="max_salary"
-                            placeholder="To"
+                            placeholder="To" form-id="filtering-form"
                             value="{{ request('max_salary') }}" />
                         </div>
                     </div>
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Experience</div>
-
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value=""
-                        @checked(!request('experience')) />
-                        <span class="ml-2">All</span>
-                    </label>
-
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="entry"
-                        @checked('entry' === request('experience')) />
-                        <span class="ml-2">Entry</span>
-                    </label>
-
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="intermediate"
-                        @checked('intermediate' === request('experience'))/>
-                        <span class="ml-2">Intermediate</span>
-                    </label>
-
-                    <label for="experience" class="mb-1 flex items-center">
-                        <input type="radio" name="experience" value="senior"
-                        @checked('senior' === request('experience'))/>
-                        <span class="ml-2">Senior</span>
-                    </label>
+                        <x-radio-group name="experience"
+                        :options="\App\Models\Job::$experience"></x-radio-group>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                <div>4</div>
+                <div>
+                    <div class="mb-1 font-semibold">Category</div>
+                        <x-radio-group name="category"
+                        :options="\App\Models\Job::$categories"></x-radio-group>
+                </div>
             </div>
             <button class="rounded-md border py-1 px-2 font-semibold bg-violet-500 text-white w-full">Search</button>
         </form>
