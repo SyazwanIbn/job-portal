@@ -5,14 +5,14 @@
 
 
     {{-- to build filter --}}
-    <x-card class="mb-4 text-sm">
-        <form id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
+    <x-card class="mb-4 text-sm"  x-data="">
+        <form x-ref="filters" id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
             <div class="mb-4 grid grid-cols-2 gap-4 ">
                 <div>
                     <div class="mb-1 font-semibold">Search</div>
                     <x-text-input
                         name="search"
-                        placeholder="Search for any text" form-id="filtering-form"
+                        placeholder="Search for any text" form-ref="filters"
                         value="{{ request('search') }}" />
                 </div>
                 <div>
@@ -21,11 +21,11 @@
                         <div class="flex gap-2">
                             <x-text-input
                             name="min_salary"
-                            placeholder="From" form-id="filtering-form"
+                            placeholder="From" form-ref="filters"
                             value="{{ request('min_salary') }}" />
                             <x-text-input
                             name="max_salary"
-                            placeholder="To" form-id="filtering-form"
+                            placeholder="To" form-ref="filters"
                             value="{{ request('max_salary') }}" />
                         </div>
                     </div>
@@ -41,7 +41,8 @@
                         :options="\App\Models\Job::$categories"></x-radio-group>
                 </div>
             </div>
-            <button class="rounded-md border py-1 px-2 font-semibold bg-violet-500 text-white w-full">Search</button>
+            <x-button class="w-full">Search</x-button>
+            {{-- <button class="rounded-md border py-1 px-2 font-semibold bg-violet-500 text-white w-full">Search</button> --}}
         </form>
     </x-card>
 
