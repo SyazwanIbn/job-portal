@@ -13,25 +13,16 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::query();
-
-        $jobs -> when(request('search'), function ($query) {
-            $query->where(function ($query) {
-                $query->where('title', 'like', '%' . request('search') . '%')
-                      ->orWhere('description', 'like', '%' . request('search') . '%');
-            });
-        }) -> when(request('min_salary'), function ($query) {
-            $query->where('salary', '>=', request('min_salary'));  //%min salary%
-        }) -> when(request('max_salary'), function ($query) {
-            $query->where('salary', '<=', request('max_salary'));  //%max salary%
-        })->when(request('experience'),function($query){
-            $query->where('experience', request('experience')); //%experience%
-        })->when(request('category'),function($query){
-            $query->where('category', request('category')); //%category%
-        });
-
-        return view('jobs.index', [
-            'jobs'=> $jobs->get()
-        ]);
+        $filters = request()->only(
+            'search',
+            'min_salary',
+            'max_salary',
+            'experience',
+            'category'
+        );
+        return view(
+            'jobs.index',
+            ['jobs' => Job::with('employer')->filter($filters)->get()]);
     }
 
     /**
@@ -56,7 +47,7 @@ class JobController extends Controller
     public function show(Job $job)
     {
          // Hantar data Job ke view
-        return view('jobs.show', compact('job'));
+        return view('jobs.show', ['job' => $job->load('employer')]);
 
     }
 
