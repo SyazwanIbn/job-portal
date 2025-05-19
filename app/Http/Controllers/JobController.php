@@ -20,7 +20,9 @@ class JobController extends Controller
             'experience',
             'category'
         );
-        return view('jobs.index',['jobs' => Job::filter($filters)->get()]);
+        return view(
+            'jobs.index',
+            ['jobs' => Job::with('employer')->filter($filters)->get()]);
     }
 
     /**
@@ -45,7 +47,7 @@ class JobController extends Controller
     public function show(Job $job)
     {
          // Hantar data Job ke view
-        return view('jobs.show', compact('job'));
+        return view('jobs.show', ['job' => $job->load('employer')]);
 
     }
 
